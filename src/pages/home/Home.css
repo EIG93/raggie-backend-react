@@ -4,6 +4,8 @@
 
 .home-right-contianer {
     height: 100%;
+    display: flex;
+
 }
 
 .content-container {
@@ -26,7 +28,15 @@
 
 #home-header {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
+
+#user-home {
+    margin-right: 2rem;
+    font-size: 1.2rem;
+}
+
 
 #header-menu-title {
     margin-left: 2rem;

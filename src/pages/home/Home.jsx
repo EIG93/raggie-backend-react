@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import './Home.css'
 
-import { AppstoreOutlined, UserOutlined, CoffeeOutlined, ShopOutlined, ProjectOutlined} from '@ant-design/icons';
+import { AppstoreOutlined, UserOutlined, CoffeeOutlined, ShopOutlined, ProjectOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
-import Emploee from '../../components/Emploee';
+import Employee from '../../components/Employee';
 import loginIcon from '../../assets/images/logo.png';
 
 
@@ -52,17 +52,24 @@ const items = [
 export default function Home() {
 
     const navigate = useNavigate()
+    const [userObj, setUserObj] = useState({})
 
-    // useEffect(() => {
-    //     //判断是否已经登录
-    //     const userInfo = localStorage.getItem("userInfo");
-    //     if(userInfo) {
-    //         console.log(userInfo);
-    //     }else {
-    //         //跳转到登录页面
-    //         navigate("/login")
-    //     }
-    // })
+    const [title, setTitle] = useState(items[0].label)
+
+    useEffect(() => {
+        //判断是否已经登录
+        const userInfo = localStorage.getItem("userInfo");
+        if (userInfo) {
+            const userObj = JSON.parse(userInfo);
+            console.log("用户信息", userObj.data);
+
+            setUserObj(userObj.data)
+
+        } else {
+            //跳转到登录页面
+            navigate("/login")
+        }
+    }, [navigate])
 
 
     return (
@@ -81,7 +88,11 @@ export default function Home() {
                     <img src={loginIcon} style={{ height: '60px', width: '60px' }} alt='' />
                     <p id='title-home'>瑞吉外卖</p>
                 </div>
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} />
+                <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} onClick={({ item, key }) => {
+                    const selectedItems = items.filter((item) => item.key === key)
+                    setTitle(selectedItems[0].label)
+
+                }} />
             </Sider>
 
             <Layout className='home-right-contianer'>
@@ -92,10 +103,14 @@ export default function Home() {
                         background: "#fff",
                     }}
                 >
-                    <div id='header-menu-title'>Header</div>
+                    <div id='header-menu-title'>{title}</div>
+                    <div id='user-home'>
+                        {console.log(userObj.username)}
+                        <label>{userObj.username}</label>
+                    </div>
                 </Header>
-              
-               <Emploee/>
+
+                <Employee />
                 {/* <Content
                     style={{
                         margin: '24px 16px 0',
@@ -112,7 +127,7 @@ export default function Home() {
                         content
                     </div>
                 </Content> */}
-              
+
             </Layout>
         </Layout>
     )
