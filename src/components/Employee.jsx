@@ -2,12 +2,13 @@ import React from 'react'
 import './Employee.css';
 
 import { Space, Table, Tag } from 'antd';
+import searchIcon from '../assets/images/search.svg'
+
 const columns = [
     {
         title: '员工姓名',
         dataIndex: 'name',
         key: 'name',
-        render: (text) => <a>{text}</a>,
     },
     {
         title: '账号',
@@ -60,10 +61,19 @@ const data = [
 ];
 
 
+
 export default function Employee() {
   return (
-    <div id='emploee-container'>
-          <Table columns={columns} dataSource={data} />
+    <div id='employee-container'>
+          <div className='employee-header-contianer'>
+              <div className='employee-search-container'>
+                  <img id='icon-search' src={searchIcon}/>
+                  <input placeholder='请输入员工姓名'/>
+              </div>
+
+              <button id='employee-add-btn' >+添加员工</button>
+        </div>
+          <Table className='table-employee' columns={columns} dataSource={data} />
     </div>
   )
 }

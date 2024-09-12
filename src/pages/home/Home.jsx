@@ -111,24 +111,10 @@ export default function Home() {
                 </Header>
 
                 <Employee />
-                {/* <Content
-                    style={{
-                        margin: '24px 16px 0',
-                    }}
-                >
-                    <div className='content-container'
-                        style={{
-                            padding: 24,
-                            minHeight: 360,
-                            background: "#335",
-                            borderRadius: "#335",
-                        }}
-                    >
-                        content
-                    </div>
-                </Content> */}
 
             </Layout>
+
+
         </Layout>
     )
 }
